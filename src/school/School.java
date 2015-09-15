@@ -36,9 +36,15 @@ public class School {
         Person jeb = 
         Person.addPerson("jeb", Person.Gender.male,174);
         
+        Course weights = Course.addCourse("weights", Course.Type.PE ,1);
+        Course calculus = Course.addCourse("calc AB", Course.Type.Math, 2);
+        Course cscience = Course.addCourse("cscience", Course.Type.Math, 4);
+        
         Person.printNames();
         Person.printNames(Person.Gender.male);
         System.out.println(joe);
+        Course.printCourses();
+        Course.printCourses(Course.Type.Math);
     }
 }
 

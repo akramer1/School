@@ -33,7 +33,7 @@ public class Person {
     {
         name = "No name";
         gender = Gender.male;
-        weight = 0;
+        weight = 100;
     }
     Person(String _name, Gender _gender, double _weight)
     {
