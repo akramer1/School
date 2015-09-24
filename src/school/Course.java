@@ -12,6 +12,8 @@ public class Course {
     private String name;
     private int period;
     
+    private Student thestudent;
+    
     private static int currentcourseindex =0;
     //private static Person people[] = new Person[numpeople];
     private static ArrayList<Course>courses = new ArrayList<Course>();
@@ -38,6 +40,7 @@ public class Course {
         type = _type;
         period = _period;
     }
+    
     public static void printCourses()
     {
         System.out.println("====PrintCourses====");
@@ -53,6 +56,15 @@ public class Course {
         {
             if(_type == temp.type)
             System.out.println(temp.getName());            
+        }
+    }
+    public void addStudent(Student _student)
+    {
+        if(thestudent != null)
+        {
+            thestudent = _student;
+            _student.addCourse(this);
+            
         }
     }
     public void setName(String _name)
@@ -81,7 +93,7 @@ public class Course {
     }
     public String toString()
     {
-        return(name + "" + type + "" + period);
+        return(name + " " + type + " " + period);
     }
     
 }
