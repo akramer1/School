@@ -1,112 +1,107 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package school;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 public class Person {
-
-    
-    enum Gender{
-        male,female
+    enum Gender {
+        Male,Female
     }
-    //private static int numpeople = 10;
-    private static int currentpeopleindex =0;
-    //private static Person people[] = new Person[numpeople];
-    protected static ArrayList<Person>people = new ArrayList<Person>();
+    protected static ArrayList<Person> people = new ArrayList<Person>();
     private String name;
     private Gender gender;
-    private double weight;
+    private int weight;
+    
     private int birthDay;
     private int birthMonth;
     private int birthYear;
-    private Course thecourse;
     
-    public static Person addPerson(String _name, Gender _gender, double _weight)
+
+    public static Person addPerson(String _name,
+    Gender _gender, int _weight)
     {
-        Person temp = new Person(_name, _gender,_weight);
-        //people[currentpeopleindex++] = temp;
+        Person temp = new Person(_name,_gender,_weight);
         people.add(temp);
-        
         return(temp);
     }
-            
     public static void addPerson(Person _person)
     {
         people.add(_person);
-        
     }
     Person()
     {
-        name = "No name";
-        gender = Gender.male;
+        name = "NoneForSure";
+        gender = Gender.Female;
         weight = 100;
     }
-    Person(String _name, Gender _gender, double _weight)
+    Person(String _name,Gender _gender,int _weight)
     {
         name = _name;
         gender = _gender;
         weight = _weight;
-    }
-    public static void printNames()
-    {
-        System.out.println("====PrintNames====");
-        for(Person temp: people)
-        {
-            System.out.println(temp.getName());            
-        }
-    }
-    public static void printNames(Gender _gender)
-    {
-        System.out.println("====PrintNamesGender====" + _gender);
-        for(Person temp: people)
-        {
-            if(_gender == temp.gender)
-            System.out.println(temp.getName());            
-        }
-    }
-    public void setBirthDate(int _day, int _month, int _year)
+    }   
+    
+    public void setBirthdate
+    (int _day,int _month,int _year)
     {
         birthDay = _day;
         birthMonth = _month;
         birthYear = _year;
+          
     }
     public int getAge()
     {
         Calendar now = Calendar.getInstance();
         int day = now.get(Calendar.DAY_OF_MONTH);
-        int month = now.get(Calendar.MONTH)+1;
+        int month = now.get(Calendar.MONTH) + 1;
         int year = now.get(Calendar.YEAR);
-        return year;
+        return(0);
     }
+ 
+    
+    public void setWeight(int _weight)
+    {
+        weight = _weight;
+    }
+    public int getWeight()
+    {
+        return(weight);
+    }       
     public void setName(String _name)
     {
         name = _name;
     }
+    public String getName()
+    {
+        return(name);
+    }    
     public void setGender(Gender _gender)
     {
         gender = _gender;
     }
-    public String getName()
-    {
-        return(name);
-    }
     public Gender getGender()
     {
         return(gender);
-    }
-    public void setWeight(double _weight)
+    }  
+    public static void printNames()
     {
-        weight = _weight;
+        System.out.println("===printNames===");
+        for (int index=0;index<people.size();index++)
+        {
+                System.out.println(people.get(index).getName());
+        }        
     }
-    public double getWeight()
+    public static void printNames(Gender _gender)
     {
-        return(weight);
-    }
+        System.out.println(
+        "===printNamesOfGender=== " + _gender);
+        for (Person temp : people)
+        {
+            if (temp.gender == _gender)
+                System.out.println(temp.getName());
+        }
+             
+    }    
     public String toString()
     {
-        return(name + "" + gender + "" + weight);
+        return(name + " " + gender + " " + weight);
     }
 }

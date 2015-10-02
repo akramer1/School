@@ -1,72 +1,106 @@
 
 package school;
 import java.util.ArrayList;
-
-
 public class Course {
-    
-    public enum Type{
-        Math, Science, English, History, Language, Elective, PE
+    enum Type {
+        Math,Science,English,History,Language,Elective,PE
     }
-    private Type type;
+    private static ArrayList<Course> courses = new ArrayList<Course>();
     private String name;
+    private Type type;
     private int period;
+    private boolean honors;   
+    public static final int numPeriods = 4;
     
-    private Student thestudent;
-    
-    private static int currentcourseindex =0;
-    //private static Person people[] = new Person[numpeople];
-    private static ArrayList<Course>courses = new ArrayList<Course>();
-       
-    public static Course addCourse(String _name, Type _type, int _period)
+    private ArrayList<Student> students = 
+    new ArrayList<Student>();
+  //  private Student theStudent;
+    private Teacher theTeacher;
+
+    public static Course addCourse(String _name,
+    Type _type, int _period, boolean _honors)
     {
-        Course temp = new Course(_name, _type, _period);
-        //people[currentpeopleindex++] = temp;
-        courses.add(temp); 
-        
+        Course temp = new Course(_name,_type,_period, _honors);
+        courses.add(temp);
         return(temp);
     }
-            
+    
+    
     
     Course()
     {
-        name = "No name";
+        name = "None";
         type = Type.Elective;
         period = 1;
     }
-    Course(String _name, Type _type, int _period)
+    Course(String _name,Type _type, int _period, boolean _honors)
     {
         name = _name;
         type = _type;
         period = _period;
+        honors = _honors;
+    }   
+
+
+    public boolean addStudent(Student _student, double _gradescore)
+    {
+        if (!setStudentOK(_student))
+            return(false);
+        if (!_student.setCourseOK(this))
+            return(false);
+        _student.setCourseDoIt(this,_gradescore);
+        setStudentDoIt(_student);
+        return(true);
+    }  
+
+    public boolean setStudentOK(Student _student)
+    {
+        if (_student == null)
+            return(false);
+        if (students.contains(_student))
+            return(false);
+        return(true);
     }
+    public void setStudentDoIt(Student _student)
+    {
+        students.add(_student);
+    }    
     
-    public static void printCourses()
+        /////////////////////    
+    
+    
+    public boolean addTeacher(Teacher _teacher)
     {
-        System.out.println("====PrintCourses====");
-        for(Course temp: courses)
-        {
-            System.out.println(temp.getName());            
-        }
-    }
-    public static void printCourses(Type _type)
+        if (!setTeacherOK(_teacher))
+            return(false);
+        if (!_teacher.setCourseOK(this))
+            return(false);
+        _teacher.setCourseDoIt(this);
+        setTeacherDoIt(_teacher);
+        return(true);
+    }  
+    public boolean setTeacherOK(Teacher _teacher)
     {
-        System.out.println("====PrintNamesTYpe====" + _type);
-        for(Course temp: courses)
-        {
-            if(_type == temp.type)
-            System.out.println(temp.getName());            
-        }
+        if (_teacher == null)
+            return(false);
+        if (theTeacher != null)
+            return(false);
+        return(true);
     }
-    public void addStudent(Student _student)
+    public void setTeacherDoIt(Teacher _teacher)
     {
-        if(thestudent != null)
-        {
-            thestudent = _student;
-            _student.addCourse(this);
-            
-        }
+        theTeacher = _teacher;
+    }    
+    
+        
+    public void setPeriod(int _period)
+    {
+        period = _period;
     }
+    public int getPeriod()
+    {
+        return(period);
+    }       
     public void setName(String _name)
     {
         name = _name;
@@ -74,7 +108,7 @@ public class Course {
     public String getName()
     {
         return(name);
-    }
+    }    
     public void setType(Type _type)
     {
         type = _type;
@@ -82,18 +116,37 @@ public class Course {
     public Type getType()
     {
         return(type);
-    }
-    public void setPeriod(int _period)
+    }  
+    public void setHonors(boolean _honors)
     {
-        period = _period;
+        honors = _honors;
     }
-    public double getPeriod()
+    public boolean getHonors()
     {
-        return(period);
+        return(honors);
     }
+    public Student getStudent(int _index)
+    {
+        return(students.get(_index));
+    }
+    public Teacher getTeacher()
+    {
+        return(theTeacher);
+    }
+    public int getNumStudents()
+    {
+        return(students.size());
+    }
+    public static void printNames()
+    {
+        System.out.println("===printNames===");
+        for (Course temp : courses)
+        {
+                System.out.println(temp.getName());
+        }        
+    }    
     public String toString()
     {
-        return(name + " " + type + " " + period);
-    }
-    
+        return(name + " " + type + " " + period + " " + theTeacher.getName());
+    }    
 }
